@@ -21,9 +21,8 @@ public class Game {
         //generateRandomTile();
         //generateRandomTile();
         generateTile(0,0);
-        generateTile(1,1);
-        generateTile(2,2);
-        generateTile(3,3);
+        generateTile(0,1);
+
 
     }
 
@@ -76,8 +75,6 @@ public class Game {
                 TileArray[PosX + 1][PosY] = TileArray[PosX][PosY];
                 //System.out.println(TileArray[PosX+1][PosY].value);
                 TileArray[PosX][PosY] = null;
-            } else {
-                return;
             }
         }
 
@@ -144,11 +141,24 @@ public class Game {
         }
     }
 
-    public void checkValue(Tile tile1, Tile tile2){
+    public boolean checkValue(Tile tile1, Tile tile2){
         if (tile1.value == tile2.value){
-
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
+    public void addValues(Tile tile1, Tile tile2){
+        if (checkValue(tile1, tile2)){
+            tile1.value += tile2.value;
+        }
+    }
+
+    public void deleteTile(int PosX, int PosY){
+        TileArray[PosX][PosY].value = 0;
+        TileArray[PosX][PosY] = null;
+    }
 
 }
