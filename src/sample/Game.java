@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.geometry.Pos;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Game {
         //generateRandomTile();
         //generateRandomTile();
         generateTile(0,0);
-        generateTile(1,0);
+        //generateTile(1,0);
         generateTile(0,1);
 
 
