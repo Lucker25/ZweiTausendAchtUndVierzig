@@ -91,7 +91,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         //System.out.println("paintTile: " + PosX + "; "+ PosY);
         tile.setLayoutX((PosX*Tile.tile_size));
         tile.setLayoutY(PosY*Tile.tile_size);
-        //System.out.println("Paint: " + (PosX*Tile.tile_size) + "; "+ PosY*Tile.tile_size);
+        System.out.println("Paint: " + (PosX*Tile.tile_size) + "; "+ PosY*Tile.tile_size);
         //System.out.println(tile.getPosX() + "; "+ tile.getPosY());
     }
 }
