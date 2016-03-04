@@ -140,7 +140,7 @@ public class Game {
         for (int i= 0 ; i < game_size; i++){
             for (int j=1 ; j < game_size; j++){
                 //System.out.println("Loop: " + i + "; " +j);
-                singleTileMoveUp(TileArray[i][j], i, j);
+                singleTileMoveUpCheck(/*TileArray[i][j], */i, j);
             }
         }
     }
@@ -173,24 +173,26 @@ public class Game {
     public void deleteTile(int PosX, int PosY){
         TileArray[PosX][PosY].value = 0;
         TileArray[PosX][PosY] = null;
+        System.out.println("deleteTile: " + PosX + "; " + PosY + "; " + TileArray[PosX][PosY]);
+        System.out.println("debugMessage: " + 0 + "; " + 3 + "; " + TileArray[0][3]);
+
     }
 
     public void singleTileMoveUpCheck(int PosX, int PosY) {
-        if (PosX > 0 && PosY > 0) {
-            if ((positionCheck(PosX, PosY - 1) != 1) && (checkValue(TileArray[PosX][PosY], TileArray[PosX][PosY-1]) )){
-                addValues(TileArray[PosX][PosY-1], TileArray[PosX][PosY]);
-                deleteTile(PosX, PosY);
-                //System.out.println(TileArray[PosX][PosY-1].value);
-                //TileArray[PosX][PosY] = null;
-
+            if (PosX >= 0 && PosY > 0) {
+                if (positionCheck(PosX, PosY - 1) == 1) {
+                    TileArray[PosX][PosY - 1] = TileArray[PosX][PosY];
+                    //System.out.println(TileArray[PosX][PosY-1].value);
+                    TileArray[PosX][PosY] = null;
+                    singleTileMoveUpCheck(PosX, PosY -1 );
+                }
+                else if ((positionCheck(PosX, PosY - 1) != 1) &&
+                        (checkValue(TileArray[PosX][PosY - 1], TileArray[PosX][PosY]))){
+                    addValues(TileArray[PosX][PosY - 1], TileArray[PosX][PosY]);
+                    deleteTile(PosX, PosY);
+                    singleTileMoveUpCheck(PosX, PosY -1);
+                }
             }
-            else if (positionCheck(PosX, PosY - 1) == 1) {
-                TileArray[PosX][PosY - 1] = TileArray[PosX][PosY];
-                //System.out.println(TileArray[PosX][PosY-1].value);
-                TileArray[PosX][PosY] = null;
-            }
-        }
-
     }
 
 }

@@ -14,24 +14,4 @@ public class Tile extends Rectangle {
         this.value = value;
     }
 
-
-
-   /* public int getPosX(){
-        return this.posX;
-    }
-
-    public int getPosY(){
-        return this.posY;
-    }
-
-    public void setPosX(int PosX){
-        this.posX = PosX;
-    }
-
-    public void setPosY(int PosY){
-        this.posY = PosY;
-    }*/
-
-
-
 }

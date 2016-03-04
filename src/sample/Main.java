@@ -71,13 +71,15 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         System.out.println("paint: Zeichne Feld neu");
         for (int i = 0; i< game.game_size; i++){
             for (int j=0; j< game.game_size; j++){
-                if (game.TileArray[i][j] != null){
+                if (game.TileArray[i][j] !=  null){
                     paintTile(game.TileArray[i][j], i, j);
+                }
+                else if ((game.TileArray[i][j] == null){
+                    canvas.getChildren().remove(game.TileArray[i][j]);
                 }
 
             }
         }
-
     }
 
     public void paintTile(Tile tile, int PosX, int PosY){
@@ -87,11 +89,14 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         }
         tile.setStroke(Color.WHITESMOKE);
         tile.setFill(Color.BLUE);
+        if (tile.value!=2){
+            tile.setFill(Color.RED);
+        }
 
         //System.out.println("paintTile: " + PosX + "; "+ PosY);
         tile.setLayoutX((PosX*Tile.tile_size));
         tile.setLayoutY(PosY*Tile.tile_size);
-        System.out.println("Paint: " + (PosX*Tile.tile_size) + "; "+ PosY*Tile.tile_size);
+        //System.out.println("Paint: " + (PosX*Tile.tile_size) + "; "+ PosY*Tile.tile_size);
         //System.out.println(tile.getPosX() + "; "+ tile.getPosY());
     }
 }
