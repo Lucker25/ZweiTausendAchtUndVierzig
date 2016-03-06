@@ -21,11 +21,15 @@ public class Game {
         -> PositionY
         -> Value
          */
+        generateRandomTile();
+        generateRandomTile();
+        generateRandomTile();
         //generateRandomTile();
         //generateRandomTile();
-        generateTile(0,0);
-        //generateTile(1,0);
+        /*generateTile(0,0);
+        generateTile(1,0);
         generateTile(0,1);
+        generateTile(1,1);*/
 
 
     }
@@ -60,6 +64,25 @@ public class Game {
 
     }
 
+
+
+    /*public int positionCheck(Tile tile){
+        // return 1 wenn Position frei
+        //System.out.println("Check: " + PosX + "; " +PosY);
+        if ((tile.PosX < game_size) && (tile.PosY < game_size) && (tile.PosX >= 0) && (tile.PosY >= 0)) {
+            if ((tile == null)) {
+                //System.out.println("positionCheck: " +PosX+"; "+ PosY + " ist frei");
+                return 1;
+            } else {
+                System.out.println("positionCheck: " +tile.PosX+"; "+ tile.PosY + " ist belegt");
+                return 0;
+            }
+        }
+        else {
+            System.out.println("positionCheck: out of line");
+            return 0;
+        }
+    }*/
     public int positionCheck(int PosX, int PosY){
         // return 1 wenn Position frei
         //System.out.println("Check: " + PosX + "; " +PosY);
@@ -78,45 +101,48 @@ public class Game {
         }
     }
 
-    public void singleTileMoveRight(Tile tile, int PosX, int PosY) {
-        if (PosX < game_size-1  && PosY < game_size) {
-            if (positionCheck(PosX + 1, PosY) == 1) {
-                TileArray[PosX + 1][PosY] = TileArray[PosX][PosY];
-                System.out.println("singleTileMoveRight: von: "+PosX+"; "+ PosY +" nach " + (PosX+1) +"; "+PosY);
-                TileArray[PosX][PosY] = null;
-                singleTileMoveRight(tile, PosX+1, PosY);
+    public void singleTileMoveRight(Tile tile) {
+        if (tile.PosX < game_size-1  && tile.PosY < game_size) {
+            if (positionCheck(tile.PosX +1, tile.PosY) == 1) {
+                TileArray[tile.PosX + 1][tile.PosY] = TileArray[tile.PosX][tile.PosY];
+                tile.setPos(tile.PosX + 1, tile.PosY);
+                System.out.println("singleTileMoveRight: von: "+tile.PosX+"; "+ tile.PosY +" nach " + (tile.PosX+1) +"; "+tile.PosY);
+                tile = null;
+                singleTileMoveRight(TileArray[tile.PosX+1][tile.PosY]);
             }
         }
-
     }
-    public void singleTileMoveLeft(Tile tile, int PosX, int PosY) {
-            if (PosX > 0 && PosY >= 0) {
-                if (positionCheck(PosX - 1, PosY) == 1) {
-                    TileArray[PosX - 1][PosY] = TileArray[PosX][PosY];
-                    System.out.println("singleTileMoveLeft: von: "+PosX+"; "+ PosY +" nach "+ (PosX-1) +"; "+PosY);
-                    TileArray[PosX][PosY] = null;
-                    singleTileMoveLeft(tile, PosX-1, PosY);
+    public void singleTileMoveLeft(Tile tile) {
+            if (tile.PosX > 0 && tile.PosY >= 0) {
+                if (positionCheck(tile.PosX - 1, tile.PosY) == 1) {
+                    TileArray[tile.PosX - 1][tile.PosY] = TileArray[tile.PosX][tile.PosY];
+                    tile.setPos(tile.PosX - 1, tile.PosY);
+                    System.out.println("singleTileMoveLeft: von: "+tile.PosX+"; "+ tile.PosY +" nach " + (tile.PosX-1) +"; "+tile.PosY);
+                    tile = null;
+                    singleTileMoveLeft(TileArray[tile.PosX-1][tile.PosY]);
                 }
             }
     }
-    public void singleTileMoveUp(Tile tile, int PosX, int PosY) {
-        if (PosX >= 0 && PosY > 0) {
-            if (positionCheck(PosX, PosY - 1) == 1) {
-                TileArray[PosX][PosY - 1] = TileArray[PosX][PosY];
+    public void singleTileMoveUp(Tile tile) {
+        if (tile.PosX >= 0 && tile.PosY > 0) {
+            if (positionCheck(tile.PosX, tile.PosY-1) == 1) {
+                TileArray[tile.PosX][tile.PosY - 1] = TileArray[tile.PosX][tile.PosY];
+                tile.setPos(tile.PosX, tile.PosY - 1);
                 //System.out.println(TileArray[PosX][PosY-1].value);
-                TileArray[PosX][PosY] = null;
-                singleTileMoveUp(tile, PosX, PosY -1 );
+                tile = null;
+                singleTileMoveUp(TileArray[tile.PosX][tile.PosY-1]);
             }
         }
 
     }
-    public void singleTileMoveDown(Tile tile, int PosX, int PosY) {
-        if (PosX <= game_size-  1 && PosY < game_size-1) {
-            if (positionCheck(PosX, PosY + 1) == 1) {
-                TileArray[PosX][PosY + 1] = TileArray[PosX][PosY];
+    public void singleTileMoveDown(Tile tile) {
+        if (tile.PosX <= game_size -  1 && tile.PosY < game_size-1) {
+            if (positionCheck(tile.PosX, tile.PosY-1) == 1) {
+                TileArray[tile.PosX][tile.PosY + 1] = TileArray[tile.PosX][tile.PosY];
+                tile.setPos(tile.PosX, tile.PosY + 1);
                 //System.out.println(TileArray[PosX][PosY + 1].value);
-                TileArray[PosX][PosY] = null;
-                singleTileMoveDown(tile, PosX, PosY+1);
+                tile = null;
+                singleTileMoveDown(TileArray[tile.PosX][tile.PosY+1]);
             }
         }
     }
@@ -125,7 +151,7 @@ public class Game {
         for (int i=0; i < game_size; i++){
             for (int j=game_size-1; j >=0;  j--){
                 //System.out.println("Loop: " + i + "; " +j);
-                singleTileMoveRight(TileArray[j][i], j, i);
+                singleTileMoveRightCheck(j,i);
             }
         }
     }
@@ -133,7 +159,7 @@ public class Game {
         for (int i= 0; i < game_size; i++){
             for (int j=0; j < game_size; j++){
                 //System.out.println("Loop: " + i + "; " +j);
-                singleTileMoveLeft(TileArray[j][i], j, i);
+                singleTileMoveLeftCheck(j, i);
             }
         }
     }
@@ -141,7 +167,7 @@ public class Game {
         for (int i= 0 ; i < game_size; i++){
             for (int j=1 ; j < game_size; j++){
                 //System.out.println("Loop: " + i + "; " +j);
-                singleTileMoveUpCheck(/*TileArray[i][j], */i, j);
+                singleTileMoveUpCheck(i, j);
             }
         }
     }
@@ -149,20 +175,25 @@ public class Game {
         for (int i=0; i < game_size; i++){
             for (int j=game_size-1; j >= 0; j--){
                 //System.out.println("Loop: " + i + "; " +j);
-                singleTileMoveDown(TileArray[i][j], i, j);
+                singleTileMoveDownCheck(i,j);
             }
         }
     }
 
 
     public boolean checkValue(Tile tile1, Tile tile2){
-        System.out.println("Value1: " + tile1.value +"; Value2: " + tile2.value);
-        if (tile1.value == tile2.value){
-            return true;
+        if (tile1 != null && tile2 != null) {
+            if ((tile1.PosX < game_size) && (tile1.PosY < game_size) && (tile1.PosX >= 0) && (tile1.PosY >= 0) &&
+                    (tile2.PosX < game_size) && (tile2.PosY < game_size) && (tile2.PosX >= 0) && (tile2.PosY >= 0)) {
+                System.out.println("Value1: " + tile1.value + "; Value2: " + tile2.value);
+                if (tile1.value == tile2.value) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     public void addValues(Tile tile1, Tile tile2){
@@ -171,29 +202,85 @@ public class Game {
         }
     }
 
-    public void deleteTile(int PosX, int PosY){
-        TileArray[PosX][PosY].value = 0;
-        TileArray[PosX][PosY] = null;
-        System.out.println("deleteTile: " + PosX + "; " + PosY + "; " + TileArray[PosX][PosY]);
-        System.out.println("debugMessage: " + 0 + "; " + 3 + "; " + TileArray[0][3]);
-
-    }
-
     public void singleTileMoveUpCheck(int PosX, int PosY) {
-            if (PosX >= 0 && PosY > 0) {
-                if (positionCheck(PosX, PosY - 1) == 1) {
+            if ((PosX >= 0 && PosY > 0) && (TileArray[PosX][PosY] != null)) {
+                if (positionCheck(PosX, PosY-1) == 1) {
                     TileArray[PosX][PosY - 1] = TileArray[PosX][PosY];
                     //System.out.println(TileArray[PosX][PosY-1].value);
+                    //TileArray[PosX][PosY - 1].setPos(PosX, PosY - 1);
+                    TileArray[PosX][PosY - 1].PosY--;
                     TileArray[PosX][PosY] = null;
-                    singleTileMoveUpCheck(PosX, PosY -1 );
+                    singleTileMoveUpCheck(PosX, PosY-1);
                 }
-                else if ((positionCheck(PosX, PosY - 1) != 1) &&
-                        (checkValue(TileArray[PosX][PosY - 1], TileArray[PosX][PosY]))){
-                    addValues(TileArray[PosX][PosY - 1], TileArray[PosX][PosY]);
-                    deleteTile(PosX, PosY);
-                    singleTileMoveUpCheck(PosX, PosY -1);
+                else if ((positionCheck(PosX, PosY-1) != 1) &&
+                        (checkValue(TileArray[PosX][PosY-1], TileArray[PosX][PosY]))){
+                    addValues(TileArray[PosX][PosY-1], TileArray[PosX][PosY-1]);
+                    TileArray[PosX][PosY-1].setPos(PosX, PosY - 1);
+                    TileArray[PosX][PosY].delete();
+                    singleTileMoveUpCheck(PosX, PosY-1);
                 }
             }
     }
+
+    public void singleTileMoveDownCheck(int PosX, int PosY) {
+        if ((PosX < game_size && PosY < game_size-1) && (TileArray[PosX][PosY] != null)) {
+            if (positionCheck(PosX, PosY + 1) == 1) {
+                TileArray[PosX][PosY + 1] = TileArray[PosX][PosY];
+                //System.out.println(TileArray[PosX][PosY-1].value);
+                //TileArray[PosX][PosY - 1].setPos(PosX, PosY - 1);
+                TileArray[PosX][PosY + 1].PosY++;
+                TileArray[PosX][PosY] = null;
+                singleTileMoveDownCheck(PosX, PosY + 1);
+            }
+            else if ((positionCheck(PosX, PosY + 1) != 1) &&
+                    (checkValue(TileArray[PosX][PosY + 1], TileArray[PosX][PosY]))){
+                addValues(TileArray[PosX][PosY + 1], TileArray[PosX][PosY]);
+                TileArray[PosX][PosY + 1].setPos(PosX, PosY + 1);
+                TileArray[PosX][PosY].delete();
+                singleTileMoveDownCheck(PosX, PosY + 1);
+            }
+        }
+    }
+
+    public void singleTileMoveRightCheck(int PosX, int PosY) {
+        if ((PosX < game_size - 1 && PosY < game_size) && (TileArray[PosX][PosY] != null)) {
+            if (positionCheck(PosX + 1, PosY) == 1) {
+                TileArray[PosX + 1][PosY] = TileArray[PosX][PosY];
+                //System.out.println(TileArray[PosX][PosY-1].value);
+                //TileArray[PosX][PosY - 1].setPos(PosX, PosY - 1);
+                TileArray[PosX + 1][PosY].PosX++;
+                TileArray[PosX][PosY] = null;
+                singleTileMoveRightCheck(PosX + 1, PosY);
+            }
+            else if ((positionCheck(PosX + 1, PosY) != 1) &&
+                    (checkValue(TileArray[PosX + 1][PosY], TileArray[PosX][PosY]))){
+                addValues(TileArray[PosX + 1][PosY], TileArray[PosX][PosY]);
+                TileArray[PosX + 1][PosY].setPos(PosX + 1, PosY);
+                TileArray[PosX][PosY].delete();
+                singleTileMoveRightCheck(PosX + 1, PosY);
+            }
+        }
+    }
+
+    public void singleTileMoveLeftCheck(int PosX, int PosY) {
+        if ((PosX > 0 && PosY >= 0) && (TileArray[PosX][PosY] != null)) {
+            if (positionCheck(PosX - 1, PosY) == 1) {
+                TileArray[PosX - 1][PosY] = TileArray[PosX][PosY];
+                //System.out.println(TileArray[PosX][PosY-1].value);
+                //TileArray[PosX][PosY - 1].setPos(PosX, PosY - 1);
+                TileArray[PosX - 1][PosY].PosX--;
+                TileArray[PosX][PosY] = null;
+                singleTileMoveLeftCheck(PosX - 1, PosY);
+            }
+            else if ((positionCheck(PosX - 1, PosY) != 1) &&
+                    (checkValue(TileArray[PosX - 1][PosY], TileArray[PosX][PosY]))){
+                addValues(TileArray[PosX - 1][PosY], TileArray[PosX][PosY]);
+                TileArray[PosX - 1][PosY].setPos(PosX - 1, PosY);
+                TileArray[PosX][PosY].delete();
+                singleTileMoveLeftCheck(PosX - 1, PosY);
+            }
+        }
+    }
+
 
 }

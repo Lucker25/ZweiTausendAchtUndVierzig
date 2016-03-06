@@ -73,7 +73,15 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         for (int i = 0; i< game.game_size; i++){
             for (int j=0; j< game.game_size; j++){
                 if (game.TileArray[i][j] !=  null){
-                    paintTile(game.TileArray[i][j], i, j);
+                    if ((game.TileArray[i][j].value != 0) /*&& (canvas.getChildren().contains(game.TileArray[i][j])== true)*/) {
+                        paintTile(game.TileArray[i][j], i, j);
+                    }
+                }
+                if (game.TileArray[i][j] !=  null) {
+                    if ((game.TileArray[i][j].value == 0) /*&& (canvas.getChildren().contains(game.TileArray[i][j])== true)*/) {
+                        canvas.getChildren().remove(game.TileArray[i][j].ID);
+                        game.TileArray[i][j] = null;
+                    }
                 }
             }
         }
@@ -83,6 +91,8 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         if (canvas.getChildren().contains(tile) != true)
         {
             canvas.getChildren().add(tile);
+            game.TileArray[PosX][PosY].ID = canvas.getChildren().indexOf(tile);
+            //System.out.print("ID: " + game.TileArray[PosX][PosY].ID);
         }
         tile.setStroke(Color.WHITESMOKE);
         tile.setFill(Color.BLUE);
@@ -90,8 +100,11 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         //System.out.println("paintTile: " + PosX + "; "+ PosY);
         tile.setLayoutX((PosX*Tile.tile_size));
         tile.setLayoutY(PosY*Tile.tile_size);
-        if (tile.value!=2){
+        if (tile.value >2 ){
             tile.setFill(Color.RED);
+        }
+        if (tile.value > 4){
+            tile.setFill(Color.GREEN);
         }
 
         //System.out.println("Paint: " + (PosX*Tile.tile_size) + "; "+ PosY*Tile.tile_size);
