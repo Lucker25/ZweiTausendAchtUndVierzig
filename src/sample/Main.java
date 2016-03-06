@@ -43,6 +43,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         launch(args);
     }
 
+
     @Override
     public void handle(KeyEvent event) {
         KeyCode code = event.getCode();
@@ -110,7 +111,10 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         //System.out.println("Paint: " + (PosX*Tile.tile_size) + "; "+ PosY*Tile.tile_size);
         //System.out.println(tile.getPosX() + "; "+ tile.getPosY());
     }
-    public void removeTile(Tile tile){
-        canvas.getChildren().remove(tile);
+
+    public void deleteTile(int PosX, int PosY){
+        canvas.getChildren().remove(game.TileArray[PosX][PosY].ID);
+
+
     }
 }
