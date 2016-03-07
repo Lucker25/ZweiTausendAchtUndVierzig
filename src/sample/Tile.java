@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 public class Tile extends Rectangle {
@@ -17,7 +18,7 @@ public class Tile extends Rectangle {
         this.PosX = startX;
         this.PosY = startY;
         this.value = value;
-        this.ID = 1;
+        //this.ID = 1;
     }
 
     public void setPos(int PosX, int PosY){
@@ -25,8 +26,9 @@ public class Tile extends Rectangle {
         this.PosY = PosY;
     }
 
-    public void delete(){
+    public void delete(Pane canvas){
         this.value = 0;
+        canvas.getChildren().remove(this.ID);
         //TileArray[PosX][PosY] = null;
         System.out.println("deleteTile: " + this.PosX + "; " + this.PosY + "; " );
         //System.out.println("debugMessage: " + 0 + "; " + 3 + "; " + TileArray[0][3]);

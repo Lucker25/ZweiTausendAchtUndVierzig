@@ -1,19 +1,13 @@
 package sample;
 
-import javafx.geometry.Pos;
-import javafx.scene.paint.Color;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Game {
     public Tile[][] TileArray;
     public static int game_size = 4;
-
-
+    public Paint paint;
 
     public Game() {
         TileArray = new Tile[game_size][game_size];
+        paint = new Paint(this);
         /*
         TileArray[X][Y] -> Array der Objekte Tiles
         Single Tile
@@ -29,7 +23,8 @@ public class Game {
         generateTile(0,0);
         generateTile(1,0);
         generateTile(2,0);
-        //generateTile(1,1);*/
+        generateTile(1,1);
+
 
 
     }
@@ -71,7 +66,7 @@ public class Game {
                 //System.out.println("positionCheck: " +PosX+"; "+ PosY + " ist frei");
                 return 1;
             } else {
-                System.out.println("positionCheck: " +PosX+"; "+ PosY + " ist belegt");
+                //System.out.println("positionCheck: " +PosX+"; "+ PosY + " ist belegt");
                 return 0;
             }
         }
@@ -165,10 +160,12 @@ public class Game {
         if (tile1 != null && tile2 != null) {
             if ((tile1.PosX < game_size) && (tile1.PosY < game_size) && (tile1.PosX >= 0) && (tile1.PosY >= 0) &&
                     (tile2.PosX < game_size) && (tile2.PosY < game_size) && (tile2.PosX >= 0) && (tile2.PosY >= 0)) {
-                System.out.println("Value1: " + tile1.value + "; Value2: " + tile2.value);
+                System.out.println("checkValues: (" + tile1.PosX + ", " + tile1.PosY + ") " + tile1.value + " + (" + tile2.PosX + ", " + tile2.PosY + ") " + tile2.value);
                 if (tile1.value == tile2.value) {
+                    System.out.println("checkValues: Werte identisch");
                     return true;
                 } else {
+                    System.out.println("checkValues: Werte unterschiedlich");
                     return false;
                 }
             }
@@ -177,9 +174,10 @@ public class Game {
     }
 
     public void addValues(Tile tile1, Tile tile2){
-        if (checkValue(tile1, tile2)){
+        //if (checkValue(tile1, tile2)){
+            System.out.println("addValues: " + tile1.value + " + " + tile2.value + " = " + (tile1.value+tile2.value));
             tile1.value += tile2.value;
-        }
+        //}
     }
 
     public void singleTileMoveUpCheck(int PosX, int PosY) {
@@ -194,11 +192,11 @@ public class Game {
                 }
                 else if ((positionCheck(PosX, PosY-1) != 1) &&
                         (checkValue(TileArray[PosX][PosY-1], TileArray[PosX][PosY]))){
-                    addValues(TileArray[PosX][PosY-1], TileArray[PosX][PosY-1]);
-                    TileArray[PosX][PosY-1].setPos(PosX, PosY - 1);
-                    Main.deleteTile(PosX, PosY);
 
+                    TileArray[PosX ][PosY - 1].value += TileArray[PosX][PosY].value;
+                    paint.deleteTile(PosX, PosY);
                     singleTileMoveUpCheck(PosX, PosY-1);
+
                 }
             }
     }
@@ -214,9 +212,8 @@ public class Game {
             }
             else if ((positionCheck(PosX, PosY + 1) != 1) &&
                     (checkValue(TileArray[PosX][PosY + 1], TileArray[PosX][PosY]))){
-                addValues(TileArray[PosX][PosY + 1], TileArray[PosX][PosY]);
-                TileArray[PosX][PosY + 1].setPos(PosX, PosY + 1);
-                TileArray[PosX][PosY].delete();
+                TileArray[PosX ][PosY + 1].value += TileArray[PosX][PosY].value;
+                paint.deleteTile(PosX, PosY);
                 singleTileMoveDownCheck(PosX, PosY + 1);
             }
         }
@@ -233,9 +230,8 @@ public class Game {
             }
             else if ((positionCheck(PosX + 1, PosY) != 1) &&
                     (checkValue(TileArray[PosX + 1][PosY], TileArray[PosX][PosY]))){
-                addValues(TileArray[PosX + 1][PosY], TileArray[PosX][PosY]);
-                TileArray[PosX + 1][PosY].setPos(PosX + 1, PosY);
-                TileArray[PosX][PosY].delete();
+                TileArray[PosX + 1][PosY].value += TileArray[PosX][PosY].value;
+                paint.deleteTile(PosX, PosY);
                 singleTileMoveRightCheck(PosX + 1, PosY);
             }
         }
@@ -252,13 +248,13 @@ public class Game {
             }
             else if ((positionCheck(PosX - 1, PosY) != 1) &&
                     (checkValue(TileArray[PosX - 1][PosY], TileArray[PosX][PosY]))){
-                addValues(TileArray[PosX - 1][PosY], TileArray[PosX][PosY]);
-                TileArray[PosX - 1][PosY].setPos(PosX - 1, PosY);
-                TileArray[PosX][PosY].delete();
+                TileArray[PosX - 1][PosY].value += TileArray[PosX][PosY].value;
+                paint.deleteTile(PosX, PosY);
                 singleTileMoveLeftCheck(PosX - 1, PosY);
             }
         }
     }
+
 
 
 
