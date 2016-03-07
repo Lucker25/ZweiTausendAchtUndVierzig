@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -30,7 +29,7 @@ public class Paint {
                 }
                 /*if (game.TileArray[i][j] !=  null) {
                     if ((game.TileArray[i][j].value == 0) /*&& (canvas.getChildren().contains(game.TileArray[i][j])== true)) {
-                        canvas.getChildren().remove(game.TileArray[i][j].ID);
+                        canvas.getChildren().remove(game.TileArray[i][j].ID_Tile);
                         game.TileArray[i][j] = null;
                     }
                 }*/
@@ -39,18 +38,31 @@ public class Paint {
     }
 
     public void paintTile(Tile tile, int PosX, int PosY){
+        System.out.println(canvas.getChildren().contains(tile) != true);
         if (canvas.getChildren().contains(tile) != true)
         {
+
             canvas.getChildren().add(tile);
-            game.TileArray[PosX][PosY].ID = canvas.getChildren().indexOf(tile);
-            //System.out.print("ID: " + game.TileArray[PosX][PosY].ID);
+            System.out.println("paintTile: Tile_ID: " + canvas.getChildren().indexOf(tile));
+            game.TileArray[PosX][PosY].ID_Tile = canvas.getChildren().indexOf(tile);
+
+            canvas.getChildren().add(tile.text);
+            System.out.println("paintTile: Text_ID: " + canvas.getChildren().indexOf(tile.text));
+            game.TileArray[PosX][PosY].ID_Text = canvas.getChildren().indexOf(tile.text);
         }
+
+        //--------------------------------------------------------------------------------------------------------------Layout Tile
         tile.setStroke(Color.WHITESMOKE);
         tile.setFill(Color.BLUE);
-
-        //System.out.println("paintTile: " + PosX + "; "+ PosY);
         tile.setLayoutX((PosX*Tile.tile_size));
         tile.setLayoutY(PosY*Tile.tile_size);
+
+        //--------------------------------------------------------------------------------------------------------------Layout Text
+        tile.text.setText(String.valueOf(tile.value));
+        tile.text.setStroke(Color.BLACK);
+        tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2));
+        tile.text.setY(PosY*Tile.tile_size+(Tile.tile_size/2));
+
         if (tile.value >2 ){
             tile.setFill(Color.RED);
         }
@@ -65,14 +77,31 @@ public class Paint {
     public void deleteTile(int PosX, int PosY){
         if (PosX < game.game_size && PosY < game.game_size) {
             System.out.println("deleteTile: " + PosX + "; " + PosY);
-            System.out.println("deleteTile: ID " + (game.TileArray[PosX][PosY].ID));
-            canvas.getChildren().remove(game.TileArray[PosX][PosY].ID);
+            System.out.println("deleteTile: ID_Tile " + (game.TileArray[PosX][PosY].ID_Tile));
+            System.out.println("deleteTile: ID_Text " + (game.TileArray[PosX][PosY].ID_Text));
+
+
+            canvas.getChildren().remove(game.TileArray[PosX][PosY].ID_Tile);
+            canvas.getChildren().remove(game.TileArray[PosX][PosY].ID_Text);
             for (int i = 0; i< game.game_size; i++) {
                 for (int j = 0; j < game.game_size; j++) {
-                    if ((game.TileArray[i][j] !=  null) && (game.TileArray[i][j].ID >= game.TileArray[PosX][PosY].ID)){
-                        game.TileArray[i][j].ID--;
-
+                    if (game.TileArray[i][j] !=  null){
+                        if (game.TileArray[i][j].ID_Tile >= game.TileArray[PosX][PosY].ID_Tile){
+                            game.TileArray[i][j].ID_Tile--;
+                        }
+                        if (game.TileArray[i][j].ID_Tile >= game.TileArray[PosX][PosY].ID_Text){
+                            game.TileArray[i][j].ID_Tile--;
+                        }
+                        if (game.TileArray[i][j].ID_Text >= game.TileArray[PosX][PosY].ID_Tile){
+                            game.TileArray[i][j].ID_Text--;
+                        }
+                        if (game.TileArray[i][j].ID_Text >= game.TileArray[PosX][PosY].ID_Text){
+                            game.TileArray[i][j].ID_Text--;
+                        }
+                        System.out.println("deleteTile: neu ID_Tile " + (game.TileArray[i][j].ID_Tile));
+                        System.out.println("deleteTile: neu ID_Text " + (game.TileArray[i][j].ID_Text));
                     }
+
                 }
             }
             game.TileArray[PosX][PosY] = null;
