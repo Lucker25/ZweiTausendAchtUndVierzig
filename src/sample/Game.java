@@ -16,11 +16,11 @@ public class Game {
         -> Value
          */
         //generateRandomTile();
-        //generateRandomTile();
-        //generateRandomTile();
-        //generateRandomTile();
-        //generateRandomTile();
-        generateTile(0,0);
+        generateRandomTile();
+        generateRandomTile();
+        generateRandomTile();
+        generateRandomTile();
+        //generateTile(0,0);
         generateTile(1,0);
         generateTile(2,0);
         generateTile(1,1);

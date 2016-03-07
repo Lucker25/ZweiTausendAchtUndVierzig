@@ -65,9 +65,16 @@ public class Paint {
     public void deleteTile(int PosX, int PosY){
         if (PosX < game.game_size && PosY < game.game_size) {
             System.out.println("deleteTile: " + PosX + "; " + PosY);
-            System.out.println("deleteTile: ID " + (game.TileArray[PosX][PosY].ID - 1));
-            System.out.println("deleteTile: ID " + (canvas.getId().));
-            canvas.getChildren().remove(game.TileArray[PosX][PosY].ID );
+            System.out.println("deleteTile: ID " + (game.TileArray[PosX][PosY].ID));
+            canvas.getChildren().remove(game.TileArray[PosX][PosY].ID);
+            for (int i = 0; i< game.game_size; i++) {
+                for (int j = 0; j < game.game_size; j++) {
+                    if ((game.TileArray[i][j] !=  null) && (game.TileArray[i][j].ID >= game.TileArray[PosX][PosY].ID)){
+                        game.TileArray[i][j].ID--;
+
+                    }
+                }
+            }
             game.TileArray[PosX][PosY] = null;
         }
         else{
