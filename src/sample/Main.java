@@ -19,7 +19,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
 
 
         game = new Game();
-        Scene scene = new Scene(game.paint.canvas, Game.game_size * Tile.tile_size, Game.game_size * Tile.tile_size);
+        Scene scene = new Scene(game.paint.canvas, game.game_size * Tile.tile_size, game.game_size * Tile.tile_size);
 
         primaryStage.setScene(scene);
 
@@ -44,18 +44,23 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         switch (code) {
             case RIGHT:
                 game.moveAllTilesRight();
+                game.generateRandomTile();
                 game.paint.paint();
                 break;
             case LEFT:
                 game.moveAllTilesLeft();
+                game.generateRandomTile();
                 game.paint.paint();
+                //game.resetTurn();
                 break;
             case UP:
                 game.moveAllTilesUp();
+                game.generateRandomTile();
                 game.paint.paint();
                 break;
             case DOWN:
                 game.moveAllTilesDown();
+                game.generateRandomTile();
                 game.paint.paint();
                 break;
         }

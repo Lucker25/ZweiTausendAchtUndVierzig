@@ -16,6 +16,7 @@ public class Tile extends Rectangle {
     public int PosY;
     public static int tile_size = 50;
     public Text text;
+    public boolean turn;
 
 
 
@@ -32,6 +33,9 @@ public class Tile extends Rectangle {
         this.text.setText(String.valueOf(this.value));
         this.text.setX(startX);
         this.text.setY(startY);
+        this.ID_Text = -1;
+        this.ID_Tile = -1;
+        this.turn = false;
 
 
         //this.ID_Tile = 1;
