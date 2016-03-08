@@ -619,7 +619,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457438457280</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Tiles werden richtig kombiniert&#10;TODO: Bugs entfernen&#10;generateRandom Tile mit 2 +4 &#10;Spielablauf!!">
+      <created>1457438462316</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1457438462316</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
