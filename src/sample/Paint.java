@@ -55,6 +55,9 @@ public class Paint {
             System.out.println("paintTile: Tile_ID: " + canvas.getChildren().indexOf(tile));
             game.TileArray[PosX][PosY].ID_Tile = canvas.getChildren().indexOf(tile);
 
+            tile.setLayoutX((PosX*Tile.tile_size));
+            tile.setLayoutY(PosY*Tile.tile_size);
+
 
 
             canvas.getChildren().add(tile.text);
@@ -65,22 +68,34 @@ public class Paint {
         //--------------------------------------------------------------------------------------------------------------Layout Tile
         //tile.setStroke(Color.WHITESMOKE);
         Path path = new Path();
-        path.getElements().add(new MoveTo(0, 0));
-        path.getElements().add(new LineTo(PosX*Tile.tile_size, PosY*Tile.tile_size));
+        //System.out.println((tile.getLayoutX() + (Tile.tile_size/2) ) +" " + ((PosY*Tile.tile_size) - (Tile.tile_size/2)));
+        double MoveX = (tile.getLayoutX()/Tile.tile_size)+(Tile.tile_size/2);
+        double MoveY = (tile.getLayoutY()/Tile.tile_size)+(Tile.tile_size/2);
+        double LineX = ((PosX*Tile.tile_size)+(Tile.tile_size/2));
+        double LineY = (PosY*Tile.tile_size)+(Tile.tile_size/2);
+        System.out.println(MoveX + ", " + MoveY +" -> " + LineX +", " +LineY);
+        path.getElements().add(new MoveTo(MoveX, MoveY));
+        path.getElements().add(new LineTo(LineY, (game.game_size - LineX)));
+
+
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(100));
+        pathTransition.setDuration(Duration.millis(5000));
         pathTransition.setPath(path);
         pathTransition.setNode(tile);
-        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
         pathTransition.setCycleCount(1);
         //pathTransition.setAutoReverse(true);
         pathTransition.play();
 
+
+
+
+        //pathTransition.stop();
+
         tile.setFill(Color.BLUE);
         tile.setLayoutX((PosX*Tile.tile_size));
         tile.setLayoutY(PosY*Tile.tile_size);
-        tile.setY(0);
-        tile.setX(0);
+        //tile.setY(0);
+        //tile.setX(0);
 
         //System.out.println(tile.getLayoutX() + " " + tile.getX() + " "  + tile.getLayoutY() + " " + tile.getY());
 

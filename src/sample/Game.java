@@ -21,9 +21,9 @@ public class Game {
         //generateRandomTile();
         //generateRandomTile();
         generateTile(0,0);
-        generateTile(0,1);
-        generateTile(0,2);
-        generateTile(0,3);
+        //generateTile(0,1);
+        //generateTile(0,2);
+        //generateTile(0,3);
         //generateTile(1,1);
 
 
@@ -86,7 +86,7 @@ public class Game {
                 //System.out.println("Loop: " + i + "; " +j);
                 if (TileArray[i][j] == null){
                     result = 0;
-                    System.out.println("lostWinCheck: Spiel läuft ");
+                    //System.out.println("lostWinCheck: Spiel läuft ");
                 }
                 else if (TileArray[i][j].value == 2048){
                     result = 2;
