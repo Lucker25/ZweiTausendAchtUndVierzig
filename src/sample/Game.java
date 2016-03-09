@@ -20,10 +20,10 @@ public class Game {
         //generateRandomTile();
         //generateRandomTile();
         //generateRandomTile();
-        generateTile(1,0);
-        generateTile(2,0);
-        generateTile(3,0);
         generateTile(0,0);
+        generateTile(0,1);
+        generateTile(0,2);
+        generateTile(0,3);
         //generateTile(1,1);
 
 
@@ -71,6 +71,34 @@ public class Game {
         TileArray[PosX][PosY] = tile;
         System.out.println("generateTile: Tile erstellt: "+  PosX + "; " + PosY);
 
+    }
+
+    public int lostWinCheck(){
+
+        /*  return 0: Spiel läuft
+            return 1: Spiel verloren
+            return 2: Spiel gewonnen
+        */
+
+        int result = 1;
+        for (int i= 0; i < game_size; i++){
+            for (int j=0; j < game_size; j++){
+                //System.out.println("Loop: " + i + "; " +j);
+                if (TileArray[i][j] == null){
+                    result = 0;
+                    System.out.println("lostWinCheck: Spiel läuft ");
+                }
+                else if (TileArray[i][j].value == 2048){
+                    result = 2;
+                    System.out.println("lostWinCheck: Spiel gewonnen");
+                }
+
+            }
+        }
+        if (result == 1){
+            System.out.println("lostWinCheck: Spiel verloren");
+        }
+        return result;
     }
 
     public int positionCheck(int PosX, int PosY){
@@ -176,7 +204,8 @@ public class Game {
                 }
                 else if ((positionCheck(PosX, PosY-1) != 1) &&
                         (checkValue(TileArray[PosX][PosY-1], TileArray[PosX][PosY]))&&
-                        (TileArray[PosX][PosY - 1].turn == false)){
+                        (TileArray[PosX][PosY - 1].turn == false) &&
+                        (TileArray[PosX][PosY].turn == false)){
                     TileArray[PosX ][PosY - 1].value += TileArray[PosX][PosY].value;
                     paint.deleteTile(PosX, PosY);
                     TileArray[PosX][PosY - 1].turn = true;
@@ -195,7 +224,8 @@ public class Game {
             }
             else if ((positionCheck(PosX, PosY + 1) != 1) &&
                     (checkValue(TileArray[PosX][PosY + 1], TileArray[PosX][PosY]))&&
-                    (TileArray[PosX][PosY + 1].turn == false)){
+                    (TileArray[PosX][PosY + 1].turn == false)&&
+                    (TileArray[PosX][PosY].turn == false)){
                 TileArray[PosX ][PosY + 1].value += TileArray[PosX][PosY].value;
                 paint.deleteTile(PosX, PosY);
                 TileArray[PosX][PosY + 1].turn = true;
@@ -215,7 +245,8 @@ public class Game {
             }
             else if ((positionCheck(PosX + 1, PosY) != 1) &&
                     (checkValue(TileArray[PosX + 1][PosY], TileArray[PosX][PosY]))&&
-                    (TileArray[PosX + 1][PosY].turn == false)){
+                    (TileArray[PosX + 1][PosY].turn == false)&&
+                    (TileArray[PosX][PosY].turn == false)){
                 TileArray[PosX + 1][PosY].value += TileArray[PosX][PosY].value;
                 paint.deleteTile(PosX, PosY);
                 TileArray[PosX + 1][PosY].turn = true;
@@ -235,7 +266,8 @@ public class Game {
             }
             else if ((positionCheck(PosX - 1, PosY) != 1) &&
                     (checkValue(TileArray[PosX - 1][PosY], TileArray[PosX][PosY])) &&
-                    (TileArray[PosX - 1][PosY].turn == false)){
+                    (TileArray[PosX - 1][PosY].turn == false)&&
+                    (TileArray[PosX][PosY].turn == false)){
                 TileArray[PosX - 1][PosY].value += TileArray[PosX][PosY].value;
                 paint.deleteTile(PosX, PosY);
                 TileArray[PosX - 1][PosY].turn = true;

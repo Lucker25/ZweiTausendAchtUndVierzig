@@ -44,26 +44,40 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         switch (code) {
             case RIGHT:
                 game.moveAllTilesRight();
-                game.generateRandomTile();
-                game.paint.paint();
+                gameHandler();
                 break;
             case LEFT:
                 game.moveAllTilesLeft();
-                game.generateRandomTile();
-                game.paint.paint();
-                //game.resetTurn();
+                gameHandler();
                 break;
             case UP:
                 game.moveAllTilesUp();
-                game.generateRandomTile();
-                game.paint.paint();
+                gameHandler();
                 break;
             case DOWN:
                 game.moveAllTilesDown();
-                game.generateRandomTile();
-                game.paint.paint();
+                gameHandler();
                 break;
         }
+    }
+
+    private void gameHandler(){
+        // Spiel läuft
+        if (game.lostWinCheck() == 0){
+            game.generateRandomTile();
+            game.paint.paint();
+        }
+        // Spiel verloren
+        else if (game.lostWinCheck() == 1){
+
+        }
+        //Spiel gewonnen
+        else if (game.lostWinCheck() == 2){
+            game.generateRandomTile();
+            game.paint.paint();
+        }
+
+
     }
 
 

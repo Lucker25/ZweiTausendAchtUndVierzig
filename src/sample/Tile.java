@@ -21,7 +21,7 @@ public class Tile extends Rectangle {
 
 
     public Tile(int startX, int startY, int value) {
-        super(startX, startY, tile_size, tile_size);
+        super(0, 0, tile_size, tile_size);
         //super(startX,startY, tile_size,tile_size, 10,10);
         this.PosX = startX;
         this.PosY = startY;
