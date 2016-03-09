@@ -4,6 +4,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
@@ -64,14 +65,15 @@ public class Paint {
         //--------------------------------------------------------------------------------------------------------------Layout Tile
         //tile.setStroke(Color.WHITESMOKE);
         Path path = new Path();
-        path.getElements().add(new MoveTo(20,20));
+        path.getElements().add(new MoveTo(0, 0));
+        path.getElements().add(new LineTo(PosX*Tile.tile_size, PosY*Tile.tile_size));
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(4000));
+        pathTransition.setDuration(Duration.millis(100));
         pathTransition.setPath(path);
         pathTransition.setNode(tile);
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setCycleCount(Timeline.INDEFINITE);
-        pathTransition.setAutoReverse(true);
+        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
+        pathTransition.setCycleCount(1);
+        //pathTransition.setAutoReverse(true);
         pathTransition.play();
 
         tile.setFill(Color.BLUE);
