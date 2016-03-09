@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ZweiTausendAchtUndVierzig:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ZweiTausendAchtUndVierzig_jar</output-path>
+    <root id="archive" name="ZweiTausendAchtUndVierzig.jar">
+      <element id="module-output" name="ZweiTausendAchtUndVierzig" />
+    </root>
+  </artifact>
+</component>
