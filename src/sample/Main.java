@@ -64,7 +64,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
     private void gameHandler(){
         // Spiel läuft
         if (game.lostWinCheck() == 0){
-            //game.generateRandomTile();
+            game.generateRandomTile();
             game.paint.paint();
 
         }

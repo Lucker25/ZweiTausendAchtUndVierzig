@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -17,6 +18,7 @@ public class Tile extends Rectangle {
     public static int tile_size = 50;
     public Text text;
     public boolean turn;
+    public Path path;
 
 
 

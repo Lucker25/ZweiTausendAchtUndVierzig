@@ -2,7 +2,7 @@ package sample;
 
 public class Game {
     public Tile[][] TileArray;
-    public int game_size = 4;
+    public int game_size = 10;
     public Paint paint;
 
     public Game() {
@@ -40,8 +40,15 @@ public class Game {
             PosY = (int) (Math.random() * game_size);
 
         }
+        int value = (int) (Math.random() * 10);
+        if (value > 5){
+            value = 4;
+        }
+        else {
+            value = 2;
+        }
         System.out.println("generateRandomTile, stelle gefunden: "+  PosX + "; " + PosY);
-        Tile tile = new Tile(PosX, PosY, 2);
+        Tile tile = new Tile(PosX, PosY, value);
         TileArray[PosX][PosY] = tile;
 
     }
@@ -53,12 +60,12 @@ public class Game {
             System.out.println("generateTile: stelle gefunden: "+  PosX + "; " + PosY);
         }
 
+
         Tile tile = new Tile(PosX, PosY, 2);
         TileArray[PosX][PosY] = tile;
         System.out.println("generateTile: Tile erstellt: "+  PosX + "; " + PosY);
 
     }
-
     public void generateTile(int PosX, int PosY, int value){
         System.out.println("generateTile: teste Stelle: "+  PosX + "; " + PosY);
         while (positionCheck(PosX, PosY) != 1){
