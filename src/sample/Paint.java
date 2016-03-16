@@ -139,14 +139,15 @@ public class Paint {
 
     public void animationTile (Tile tile, int PosX, int PosY){
 
-        double MoveX = (Tile.tile_size/2);  //+ Tile.tile_size; //(tile.getLayoutX()/Tile.tile_size) + (Tile.tile_size/2);
-        double MoveY = (Tile.tile_size/2);   //+ Tile.tile_size; //(tile.getLayoutY()/Tile.tile_size) + (Tile.tile_size/2);
+        double MoveX = (Tile.tile_size/2);
+        double MoveY = (Tile.tile_size/2);
         System.out.println("MoveX: " + MoveX +"MoveY: " + MoveY);
 
         double LineX =(PosX*Tile.tile_size)-(tile.getLayoutX())+(Tile.tile_size/2);
         double LineY = ((PosY*Tile.tile_size)-(tile.getLayoutY())+(Tile.tile_size/2));
         System.out.println("LineX: " + LineX +"LineY: " + LineY);
-        //System.out.println(PosX*Tile.tile_size + ", " + PosY*Tile.tile_size);
+
+        if (((MoveX == LineX) && (MoveY != LineY)) || ((MoveY == LineY) && (MoveX != LineX)))
 
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
@@ -165,16 +166,10 @@ public class Paint {
             public void handle(ActionEvent event) {
                 tile.path = null;
                 pathTransition.stop();
-                //tile.CanvasPosX = PosX*Tile.tile_size;
-                //tile.CanvasPosY = PosY*Tile.tile_size;
-                //System.out.println("getLayout: Y:"+ tile.getY() + "; LayoutY: " + tile.getLayoutY() );
-                //tile.relocate(PosX*Tile.tile_size, PosY*Tile.tile_size);
                 tile.setTranslateX(0);
                 tile.setTranslateY(0);
                 tile.setLayoutX((PosX*Tile.tile_size));
                 tile.setLayoutY(PosY*Tile.tile_size);
-                //canvas.
-                //System.out.println("getLayout: Y:"+ tile.getY() + "; LayoutY: " + tile.getLayoutY() );
             }
 
         });
