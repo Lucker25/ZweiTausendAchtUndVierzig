@@ -16,8 +16,6 @@ public class Main extends Application implements EventHandler<KeyEvent> {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-
-
         game = new Game();
         Scene scene = new Scene(game.paint.canvas, game.game_size * Tile.tile_size, game.game_size * Tile.tile_size);
 
@@ -63,17 +61,17 @@ public class Main extends Application implements EventHandler<KeyEvent> {
 
     private void gameHandler(){
         // Spiel läuft
-        if (game.lostWinCheck() == 0){
+        if (game.lostWinCheck() == "weiter"){
             game.generateRandomTile();
             game.paint.paint();
 
         }
         // Spiel verloren
-        else if (game.lostWinCheck() == 1){
+        else if (game.lostWinCheck() == "verloren"){
 
         }
         //Spiel gewonnen
-        else if (game.lostWinCheck() == 2){
+        else if (game.lostWinCheck() == "gewonnen"){
             game.generateRandomTile();
             game.paint.paint();
         }

@@ -19,6 +19,8 @@ public class Tile extends Rectangle {
     public Text text;
     public boolean turn;
     public Path path;
+    public int CanvasPosX;
+    public int CanvasPosY;
 
 
 
@@ -38,6 +40,8 @@ public class Tile extends Rectangle {
         this.ID_Text = -1;
         this.ID_Tile = -1;
         this.turn = false;
+        this.CanvasPosX = startX*Tile.tile_size;
+        this.CanvasPosY = startY*Tile.tile_size;
 
 
         //this.ID_Tile = 1;

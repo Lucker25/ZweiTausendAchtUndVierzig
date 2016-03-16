@@ -1,10 +1,9 @@
 package sample;
 
-import javafx.animation.Animation;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
@@ -59,6 +58,8 @@ public class Paint {
 
             tile.setLayoutX((PosX*Tile.tile_size));
             tile.setLayoutY(PosY*Tile.tile_size);
+            //tile.CanvasPosX = PosX*Tile.tile_size;
+            //tile.CanvasPosY = PosY*Tile.tile_size;
 
 
 
@@ -68,28 +69,13 @@ public class Paint {
         }
 
         //--------------------------------------------------------------------------------------------------------------Layout Tile
-        //tile.setStroke(Color.WHITESMOKE);
-        //Path path = new Path();
-        //System.out.println((tile.getLayoutX() + (Tile.tile_size/2) ) +" " + ((PosY*Tile.tile_size) - (Tile.tile_size/2)));
-
 
         animationTile(tile, PosX, PosY);
-        /*synchronized (tile) {
-            animationTile(tile, PosX, PosY);
-            try {
-                tile.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
 
 
         tile.setFill(Color.BLUE);
-        tile.setLayoutX((PosX*Tile.tile_size));
-        tile.setLayoutY(PosY*Tile.tile_size);
-
-        //tile.setY(0);
-        //tile.setX(0);
+        //tile.setLayoutX((PosX*Tile.tile_size));
+        //tile.setLayoutY(PosY*Tile.tile_size);
 
         //System.out.println(tile.getLayoutX() + " " + tile.getX() + " "  + tile.getLayoutY() + " " + tile.getY());
 
@@ -97,41 +83,34 @@ public class Paint {
         System.out.println("paintTile: Text_ID debug: " + canvas.getChildren().indexOf(tile.text));
         tile.text.setText(String.valueOf(tile.value));
         tile.text.setStroke(Color.BLACK);
-        tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-4);
-        tile.text.setY(PosY*Tile.tile_size+(Tile.tile_size/2)+4);
-
+        //System.out.println(tile.text.getText().toString().length());
+        tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-((tile.text.getText().toString().length())*4));
+        tile.text.setY(PosY*Tile.tile_size+(Tile.tile_size/2)+5);
+        //--------------------------------------------------------------------------------------------------------------Tile Color
         switch (tile.value){
             case 2048:
                 tile.setFill(Color.GOLD);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-16);
                 break;
             case 1024:
                 tile.setFill(Color.SILVER);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-16);
                 break;
             case 512:
                 tile.setFill(Color.YELLOW);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-12);
                 break;
             case 256:
                 tile.setFill(Color.ORANGE);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-12);
                 break;
             case 128:
                 tile.setFill(Color.RED);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-12);
                 break;
             case 64:
                 tile.setFill(Color.CHOCOLATE);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-10);
                 break;
             case 32:
                 tile.setFill(Color.CADETBLUE);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-10);
                 break;
             case 16:
                 tile.setFill(Color.BROWN);
-                tile.text.setX(PosX*Tile.tile_size+(Tile.tile_size/2)-10);
                 break;
             case 8:
                 tile.setFill(Color.BLUEVIOLET);
@@ -160,12 +139,15 @@ public class Paint {
 
     public void animationTile (Tile tile, int PosX, int PosY){
 
-        double MoveX =   (tile.getLayoutX()/Tile.tile_size)+(Tile.tile_size/2);
-        double MoveY =   (tile.getLayoutY()/Tile.tile_size)+(Tile.tile_size/2);
-        // bewegt sich relativ zu move!!!!!
-        double LineX =(PosX*Tile.tile_size)+(Tile.tile_size/2);
-        double LineY = ((PosY*Tile.tile_size)+(Tile.tile_size/2));
-        System.out.println(PosX*Tile.tile_size + ", " + PosY*Tile.tile_size);
+        double MoveX = (Tile.tile_size/2);  //+ Tile.tile_size; //(tile.getLayoutX()/Tile.tile_size) + (Tile.tile_size/2);
+        double MoveY = (Tile.tile_size/2);   //+ Tile.tile_size; //(tile.getLayoutY()/Tile.tile_size) + (Tile.tile_size/2);
+        System.out.println("MoveX: " + MoveX +"MoveY: " + MoveY);
+
+        double LineX =(PosX*Tile.tile_size)-(tile.getLayoutX())+(Tile.tile_size/2);
+        double LineY = ((PosY*Tile.tile_size)-(tile.getLayoutY())+(Tile.tile_size/2));
+        System.out.println("LineX: " + LineX +"LineY: " + LineY);
+        //System.out.println(PosX*Tile.tile_size + ", " + PosY*Tile.tile_size);
+
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
         path.getElements().add(new MoveTo(MoveX, MoveY));
@@ -177,12 +159,22 @@ public class Paint {
         pathTransition.setCycleCount(1);
         pathTransition.play();
 
+
         pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
                 tile.path = null;
-                tile.setLayoutX(PosX*Tile.tile_size);
+                pathTransition.stop();
+                //tile.CanvasPosX = PosX*Tile.tile_size;
+                //tile.CanvasPosY = PosY*Tile.tile_size;
+                //System.out.println("getLayout: Y:"+ tile.getY() + "; LayoutY: " + tile.getLayoutY() );
+                //tile.relocate(PosX*Tile.tile_size, PosY*Tile.tile_size);
+                tile.setTranslateX(0);
+                tile.setTranslateY(0);
+                tile.setLayoutX((PosX*Tile.tile_size));
                 tile.setLayoutY(PosY*Tile.tile_size);
+                //canvas.
+                //System.out.println("getLayout: Y:"+ tile.getY() + "; LayoutY: " + tile.getLayoutY() );
             }
 
         });

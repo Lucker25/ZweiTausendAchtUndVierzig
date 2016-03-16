@@ -2,7 +2,7 @@ package sample;
 
 public class Game {
     public Tile[][] TileArray;
-    public int game_size = 10;
+    public int game_size = 4;
     public Paint paint;
 
     public Game() {
@@ -21,6 +21,7 @@ public class Game {
         //generateRandomTile();
         //generateRandomTile();
         generateTile(0,0);
+        //generateTile(1,0, 2048);
         //generateTile(0,1);
         //generateTile(0,2);
         //generateTile(0,3);
@@ -80,29 +81,42 @@ public class Game {
 
     }
 
-    public int lostWinCheck(){
+    public String lostWinCheck(){
 
         /*  return 0: Spiel läuft
             return 1: Spiel verloren
             return 2: Spiel gewonnen
         */
 
-        int result = 1;
+        String result = "verloren";
         for (int i= 0; i < game_size; i++){
             for (int j=0; j < game_size; j++){
                 //System.out.println("Loop: " + i + "; " +j);
+                if (i < game_size-1){
+                    if (checkValue(TileArray[i][j], TileArray[i+1][j]) ){
+                        result = "weiter";
+                    }
+                }
+                if (j < game_size-1){
+                    if (checkValue(TileArray[i][j], TileArray[i][j+1]) ){
+                        result = "weiter";
+                    }
+                }
                 if (TileArray[i][j] == null){
-                    result = 0;
+                    result = "weiter";
                     //System.out.println("lostWinCheck: Spiel läuft ");
                 }
-                else if (TileArray[i][j].value == 2048){
-                    result = 2;
-                    System.out.println("lostWinCheck: Spiel gewonnen");
+                if (TileArray[i][j] != null){
+                    if (TileArray[i][j].value == 2048){
+                        result = "gewonnen";
+                        System.out.println("lostWinCheck: Spiel gewonnen");
+                    }
                 }
+
 
             }
         }
-        if (result == 1){
+        if (result == "verloren"){
             System.out.println("lostWinCheck: Spiel verloren");
         }
         return result;
@@ -173,7 +187,6 @@ public class Game {
             }
         }
     }
-
 
     public boolean checkValue(Tile tile1, Tile tile2){
         if (tile1 != null && tile2 != null) {
