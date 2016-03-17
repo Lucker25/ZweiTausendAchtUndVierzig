@@ -70,7 +70,7 @@ public class Paint {
 
         //--------------------------------------------------------------------------------------------------------------Layout Tile
 
-        animationTile(tile, PosX, PosY);
+        animationMoveTile(tile, PosX, PosY);
 
 
         tile.setFill(Color.BLUE);
@@ -126,6 +126,8 @@ public class Paint {
     }
 
     public void deleteTile(int PosX, int PosY){
+
+
         if (PosX < game.game_size && PosY < game.game_size) {
             System.out.println("deleteTile: " + PosX + "; " + PosY);
             canvas.getChildren().remove(game.TileArray[PosX][PosY]);
@@ -137,7 +139,7 @@ public class Paint {
         }
     }
 
-    public void animationTile (Tile tile, int PosX, int PosY){
+    public void animationMoveTile (Tile tile, int PosX, int PosY){
 
         double MoveX = (Tile.tile_size/2);
         double MoveY = (Tile.tile_size/2);
@@ -146,20 +148,21 @@ public class Paint {
         double LineX =(PosX*Tile.tile_size)-(tile.getLayoutX())+(Tile.tile_size/2);
         double LineY = ((PosY*Tile.tile_size)-(tile.getLayoutY())+(Tile.tile_size/2));
         System.out.println("LineX: " + LineX +"LineY: " + LineY);
-
-        if (((MoveX == LineX) && (MoveY != LineY)) || ((MoveY == LineY) && (MoveX != LineX)))
-
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
-        path.getElements().add(new MoveTo(MoveX, MoveY));
-        path.getElements().add(new LineTo(LineX, LineY));
-        tile.path = path;
-        pathTransition.setPath(tile.path);
-        pathTransition.setDuration(Duration.millis(50));
-        pathTransition.setNode(tile);
-        pathTransition.setCycleCount(1);
-        pathTransition.play();
 
+        if (((MoveX == LineX) && (MoveY != LineY)) || ((MoveY == LineY) && (MoveX != LineX))) {
+
+
+            path.getElements().add(new MoveTo(MoveX, MoveY));
+            path.getElements().add(new LineTo(LineX, LineY));
+            tile.path = path;
+            pathTransition.setPath(tile.path);
+            pathTransition.setDuration(Duration.millis(50));
+            pathTransition.setNode(tile);
+            pathTransition.setCycleCount(1);
+            pathTransition.play();
+        }
 
         pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
 
@@ -175,4 +178,56 @@ public class Paint {
         });
 
     }
+
+   /* public void animationDeleteTile (int PosX, int PosY){
+
+        double MoveX = (Tile.tile_size/2);
+        double MoveY = (Tile.tile_size/2);
+        System.out.println("MoveX: " + MoveX +"MoveY: " + MoveY);
+
+
+
+        double LineX =(PosX*Tile.tile_size)-(game.TileArray[PosX][PosY].getLayoutX())+(Tile.tile_size/2);
+        double LineY = ((PosY*Tile.tile_size)-(game.TileArray[PosX][PosY].getLayoutY())+(Tile.tile_size/2));
+        System.out.println("LineX: " + LineX +"LineY: " + LineY);
+        Path path = new Path();
+        PathTransition pathTransition = new PathTransition();
+
+        if (((MoveX == LineX) && (MoveY != LineY)) || ((MoveY == LineY) && (MoveX != LineX))) {
+
+
+            path.getElements().add(new MoveTo(MoveX, MoveY));
+            path.getElements().add(new LineTo(LineX, LineY));
+            pathTransition.setPath(path);
+            pathTransition.setDuration(Duration.millis(50));
+            pathTransition.setNode(game.TileArray[PosX][PosY]);
+            pathTransition.setCycleCount(1);
+            pathTransition.play();
+            if (PosX < game.game_size && PosY < game.game_size) {
+                System.out.println("deleteTile: " + PosX + "; " + PosY);
+                canvas.getChildren().remove(game.TileArray[PosX][PosY]);
+                canvas.getChildren().remove(game.TileArray[PosX][PosY].text);
+                game.TileArray[PosX][PosY] = null;
+            }
+            else{
+                System.out.println("deleteTile: out of line");
+            }
+        }
+
+        pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                game.TileArray[PosX][PosY].path = null;
+                pathTransition.stop();
+                game.TileArray[PosX][PosY].setTranslateX(0);
+                game.TileArray[PosX][PosY].setTranslateY(0);
+                game.TileArray[PosX][PosY].setLayoutX((PosX*Tile.tile_size));
+                game.TileArray[PosX][PosY].setLayoutY(PosY*Tile.tile_size);
+
+            }
+
+        });
+
+    }*/
+
 }
