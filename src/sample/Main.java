@@ -62,6 +62,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         }
     }
 
+    //Überprüft den Spielablauf
     private void gameHandler(){
         // Spiel läuft
         int check = game.lostWinCheck();
@@ -72,7 +73,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         }
         // Spiel verloren
         else if (check == game.LOST){
-            int result = JOptionPane.showConfirmDialog(null, "You`ve lost!! new Game?", "TITEL", JOptionPane.YES_NO_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, "You`ve lost!! new Game?", "LOST", JOptionPane.YES_NO_CANCEL_OPTION);
             if (result == JOptionPane.YES_OPTION) {
                 game.newGame();
                 //System.exit(0);
@@ -83,7 +84,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
         }
         //Spiel gewonnen
         else if ((check == game.WON) && (game_continued == false)){
-            int result = JOptionPane.showConfirmDialog(null, "You`ve WON!! Congratulations, new Game?", "TITEL", JOptionPane.YES_NO_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, "You`ve WON!! Congratulations, new Game?", "WON", JOptionPane.YES_NO_CANCEL_OPTION);
             if (result == JOptionPane.YES_OPTION) {
                 game.newGame();
                 //System.exit(0);
@@ -99,6 +100,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
 
 
     }
+
 
     public static void unsetGameContinued(){
         game_continued = false;

@@ -5,14 +5,14 @@ import javafx.scene.text.Text;
 
 public class Tile extends Rectangle {
 
-    public int value;
-    public int ID_Tile;
-    public int ID_Text;
-    public int PosX;
+    public int value;// Wert der Tile
+    public int ID_Tile;// ID der Tile (wird wahrscheinlich nicht mehr benötigt)
+    public int ID_Text;// s.o.
+    public int PosX;// Position der Tile im Array
     public int PosY;
-    public static int tile_size = 50;
-    public Text text;
-    public boolean added;
+    public static int tile_size = 50; //Größe der Tile (Quadrat)
+    public Text text;//Beschriftung der Tile
+    public boolean added;// Tiles können nur einmal im Zug zusammengeschoben werden
 
 
 
@@ -31,11 +31,6 @@ public class Tile extends Rectangle {
         this.ID_Text = -1;
         this.ID_Tile = -1;
         this.added = false;
-    }
-
-    public void setPos(int PosX, int PosY){
-        this.PosX = PosX;
-        this.PosY = PosY;
     }
 
 }
