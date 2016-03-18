@@ -45,7 +45,7 @@ public class Paint {
         }
     }
 
-    public void paintTile(Tile tile, int PosX, int PosY){
+    private void paintTile(Tile tile, int PosX, int PosY){
 
         if (canvas.getChildren().contains(tile) != true)
         {
@@ -139,7 +139,7 @@ public class Paint {
         }
     }
 
-    public void animationMoveTile (Tile tile, int PosX, int PosY){
+    private void animationMoveTile (Tile tile, int PosX, int PosY){
 
         double MoveX = (Tile.tile_size/2);
         double MoveY = (Tile.tile_size/2);
@@ -156,8 +156,7 @@ public class Paint {
 
             path.getElements().add(new MoveTo(MoveX, MoveY));
             path.getElements().add(new LineTo(LineX, LineY));
-            tile.path = path;
-            pathTransition.setPath(tile.path);
+            pathTransition.setPath(path);
             pathTransition.setDuration(Duration.millis(50));
             pathTransition.setNode(tile);
             pathTransition.setCycleCount(1);
@@ -167,7 +166,6 @@ public class Paint {
         pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
-                tile.path = null;
                 pathTransition.stop();
                 tile.setTranslateX(0);
                 tile.setTranslateY(0);
