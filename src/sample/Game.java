@@ -5,6 +5,7 @@ public class Game {
     public int game_size = 4;// Größe des Spielfeldes
     public Paint paint;
     private boolean movedTile = true; // wenn keine Tiles bewegt werden = false; wird für den Spielablauf benötigt
+    public int score = 0;
 
     // Deklarationen für den Spielablauf
     public static final int GO_ON =0;//Spiel läuft weiter
@@ -239,6 +240,7 @@ public class Game {
                         (TileArray[PosX][PosY - 1].added == false) &&
                         (TileArray[PosX][PosY].added == false)){
                     TileArray[PosX ][PosY - 1].value += TileArray[PosX][PosY].value;
+                    score +=  TileArray[PosX][PosY - 1].value;
                     paint.deleteTile(PosX, PosY);
                     TileArray[PosX][PosY - 1].added = true;
                     movedTile = true;
@@ -261,6 +263,7 @@ public class Game {
                     (TileArray[PosX][PosY + 1].added == false)&&
                     (TileArray[PosX][PosY].added == false)){
                 TileArray[PosX ][PosY + 1].value += TileArray[PosX][PosY].value;
+                score +=  TileArray[PosX][PosY + 1].value;
                 paint.deleteTile(PosX, PosY);
                 TileArray[PosX][PosY + 1].added = true;
                 movedTile = true;
@@ -282,6 +285,7 @@ public class Game {
                     (TileArray[PosX + 1][PosY].added == false)&&
                     (TileArray[PosX][PosY].added == false)){
                 TileArray[PosX + 1][PosY].value += TileArray[PosX][PosY].value;
+                score +=  TileArray[PosX + 1][PosY].value;
                 paint.deleteTile(PosX, PosY);
                 TileArray[PosX + 1][PosY].added = true;
                 movedTile = true;
@@ -303,6 +307,7 @@ public class Game {
                     (TileArray[PosX - 1][PosY].added == false)&&
                     (TileArray[PosX][PosY].added == false)){
                 TileArray[PosX - 1][PosY].value += TileArray[PosX][PosY].value;
+                score +=  TileArray[PosX - 1][PosY].value;
                 paint.deleteTile(PosX, PosY);
                 TileArray[PosX - 1][PosY].added = true;
                 movedTile = true;
@@ -322,6 +327,7 @@ public class Game {
         }
         movedTile = true;
         Main.unsetGameContinued();
+        score = 0;
         generateRandomTile();
         paint.paint();
 
