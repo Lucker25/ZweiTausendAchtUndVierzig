@@ -20,7 +20,7 @@ public class Main extends Application implements EventHandler<KeyEvent> {
     public void start(Stage primaryStage) throws Exception{
 
         game = new Game();
-        Scene scene = new Scene(game.paint.canvas, game.game_size * Tile.tile_size, game.game_size * Tile.tile_size + 100);
+        Scene scene = new Scene(game.paint.canvas, game.game_size * Tile.tile_size, game.game_size * Tile.tile_size);
         primaryStage.setScene(scene);
 
         //scene.setOnKeyPressed(this);
